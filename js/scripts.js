@@ -7,6 +7,11 @@ let events = [
 ]; // Assurez-vous d'avoir une liste d'événements
 
 window.onload = () => {
+  const events = [
+    { title: "Événement 1", expiration: "2024-02-10" },
+    { title: "Événement 2", expiration: "2024-03-15" },
+    // Ajoutez d'autres événements ici
+  ];
   // On récupère les données dates
   const currentDateElement = document.getElementById("current-date");
   const expirationElement = document.getElementById("expiration-date");
