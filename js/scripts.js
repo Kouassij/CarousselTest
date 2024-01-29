@@ -1,38 +1,29 @@
 // Variables globales
 let compteur = 0; // Compteur qui permet de connaître l'image sur laquelle on se trouve
 let timer, elements, slides, slideWidth, speed, transition;
-let currentIndex = 0; // Assurez-vous d'initialiser currentIndex
-let events = [
-  /* Vos événements ici */
-]; // Assurez-vous d'avoir une liste d'événements
+let currentIndex = 0;
 
-window.onload = () => {
-  const events = [
-    { title: "Événement 1", expiration: "2024-02-10" },
-    { title: "Événement 2", expiration: "2024-03-15" },
-    // Ajoutez d'autres événements ici
-  ];
-  // On récupère les données dates
-  const currentDateElement = document.getElementById("current-date");
-  const expirationElement = document.getElementById("expiration-date");
+const events = [
+  { title: "Événement 1", expiration: "2024-02-10" },
+  { title: "Événement 2", expiration: "2024-03-15" },
+  { title: "Événement 3", expiration: "2024-03-17" },
 
-  function updateCarousel() {
-    const event = events[currentIndex];
-    const currentDate = new Date().toLocaleDateString("fr-FR");
-    currentDateElement.textContent = currentDate; // Mise à jour de la date actuelle
-    expirationElement.textContent = event.expiration; // Si vous avez une date d'expiration
-  }
+  // Ajoutez d'autres événements selon vos besoins
+];
 
-  document.querySelector("#nav-droite").addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + events.length) % events.length;
-    updateCarousel();
-  });
+function updateCarousel() {
+  const event = events[currentIndex];
+  const titleElement = document.querySelector(".event__title"); // Assurez-vous que cet élément existe dans votre HTML
+  const currentDateElement = document.getElementById("current-date"); // Idem
+  const expirationElement = document.getElementById("expiration-date"); // Idem
 
-  document.querySelector("#nav-gauche").addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % events.length;
-    updateCarousel();
-  });
+  titleElement.textContent = event.title;
+  currentDateElement.textContent = new Date().toLocaleDateString("fr-FR");
+  expirationElement.textContent = event.expiration;
+}
+updateCarousel();
 
+document.addEventListener("DOMContentLoaded", () => {
   // On récupère le diaporama
   const diapo = document.querySelector(".diapo");
   // On récupère le data-speed
@@ -56,6 +47,25 @@ window.onload = () => {
   let next = document.querySelector("#nav-droite");
   let prev = document.querySelector("#nav-gauche");
 
+  /*document.querySelector("#nav-droite").addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + events.length) % events.length;
+    updateCarousel();
+
+    // Flèche de navigation gauche
+    document.querySelector("#nav-gauche").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % events.length;
+      updateCarousel();
+    });
+
+    // Initialiser avec le premier événement
+    updateCarousel();
+  });
+*/
+  document.querySelector(".diapo").addEventListener("mouseover", () => {
+    currentIndex = (currentIndex - 1 + events.length) % events.length;
+    updateCarousel();
+  });
+
   // On gère le clic
   next.addEventListener("click", slideNext);
   prev.addEventListener("click", slidePrev);
@@ -66,7 +76,7 @@ window.onload = () => {
   // On gère l'arrêt et la reprise
   diapo.addEventListener("mouseover", stopTimer);
   diapo.addEventListener("mouseout", startTimer);
-};
+});
 
 /**
  * Cette fonction fait défiler le diaporama vers la droite
