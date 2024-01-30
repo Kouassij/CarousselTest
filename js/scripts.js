@@ -1,29 +1,35 @@
 // Variables globales
 let compteur = 0; // Compteur qui permet de connaître l'image sur laquelle on se trouve
 let timer, elements, slides, slideWidth, speed, transition;
-let currentIndex = 0;
+currentIndex = 0;
 
-const events = [
-  { title: "Événement 1", expiration: "2024-02-10" },
-  { title: "Événement 2", expiration: "2024-03-15" },
-  { title: "Événement 3", expiration: "2024-03-17" },
+window.onload = () => {
+  function updateCarousel() {
+    const event = events[currentIndex];
 
-  // Ajoutez d'autres événements selon vos besoins
-];
+    const titleElement = document.querySelector(".event__title");
+    const currentDateElement = document.getElementById("current-date");
+    const expirationElement = document.getElementById("expiration-date");
 
-function updateCarousel() {
-  const event = events[currentIndex];
-  const titleElement = document.querySelector(".event__title"); // Assurez-vous que cet élément existe dans votre HTML
-  const currentDateElement = document.getElementById("current-date"); // Idem
-  const expirationElement = document.getElementById("expiration-date"); // Idem
+    titleElement.textContent = event.title;
+    currentDateElement.textContent = `Date du jour: ${new Date().toLocaleDateString(
+      "fr-FR"
+    )}`;
+    expirationElement.textContent = `Expire le: ${event.expiration}`;
+  }
 
-  titleElement.textContent = event.title;
-  currentDateElement.textContent = new Date().toLocaleDateString("fr-FR");
-  expirationElement.textContent = event.expiration;
-}
-updateCarousel();
+  function updateAllDates() {
+    const dateElements = document.querySelectorAll(".event__date");
 
-document.addEventListener("DOMContentLoaded", () => {
+    dateElements.forEach((dateElement, index) => {
+      // Met à jour la date pour chaque élément
+      dateElement.textContent = `Date du jour: ${new Date().toLocaleDateString(
+        "fr-FR"
+      )}`;
+    });
+  }
+  updateAllDates();
+
   // On récupère le diaporama
   const diapo = document.querySelector(".diapo");
   // On récupère le data-speed
@@ -47,28 +53,21 @@ document.addEventListener("DOMContentLoaded", () => {
   let next = document.querySelector("#nav-droite");
   let prev = document.querySelector("#nav-gauche");
 
-  /*document.querySelector("#nav-droite").addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + events.length) % events.length;
-    updateCarousel();
-
-    // Flèche de navigation gauche
-    document.querySelector("#nav-gauche").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % events.length;
-      updateCarousel();
-    });
-
-    // Initialiser avec le premier événement
-    updateCarousel();
-  });
-*/
-  document.querySelector(".diapo").addEventListener("mouseover", () => {
-    currentIndex = (currentIndex - 1 + events.length) % events.length;
-    updateCarousel();
-  });
-
   // On gère le clic
   next.addEventListener("click", slideNext);
   prev.addEventListener("click", slidePrev);
+
+  next.addEventListener("click", () => {
+    slideNext();
+    currentIndex = (currentIndex + 1) % events.length;
+    updateCarousel();
+  });
+
+  prev.addEventListener("click", () => {
+    slidePrev();
+    currentIndex = (currentIndex - 1 + events.length) % events.length;
+    updateCarousel();
+  });
 
   // On automatise le défilement
   timer = setInterval(slideNext, speed);
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // On gère l'arrêt et la reprise
   diapo.addEventListener("mouseover", stopTimer);
   diapo.addEventListener("mouseout", startTimer);
-});
+};
 
 /**
  * Cette fonction fait défiler le diaporama vers la droite
