@@ -20,10 +20,9 @@
       <div class="diapo" data-speed="2000" data-transition="700">
         <div class="elements">
           <div class="element">
-            <img src="images/index-slide01.jpg" alt="Clavier" />
+            <img src="images/index-slide01.jpg" alt="Clavier"/>
             <div class="caption">
-              <h2 class="event__title">Evènement1</h2>
-              
+                <h2 class="event__title" id="titre1">Evènement1</h2>
               <section>
                 <p>
                     <div class="event_calendar">
@@ -35,15 +34,16 @@
                             <span style="display: none" id="expiration-date"></span>
                         </p>
                         </div>
+                    </div>
                         </p>
               </section>
             </div>
-          </div>
+          </section>
           <div class="element">
            
             <img src="images/index-slide02.jpg" alt="Dame" />
             <div class="caption">
-                <h2 class="event__title">Evènement2</h2>
+                <h2 class="event__title" id="titre2">Evènement2</h2>
                 
                 <section>
                   <p>
@@ -56,6 +56,7 @@
                               <span style="display: none" id="expiration-date"></span>
                           </p>
                           </div>
+                        </div>
                           </p>
                 </section>
               </div>
@@ -63,7 +64,8 @@
           <div class="element">
             <img src="images/index-slide03.jpg" alt="Paysage" />
             <div class="caption">
-                <h2 class="event__title">Evènement3</h2>
+                <h2 class="event__title" id="titre3">Evènement3</h2>
+                <div class="description"><strong>Jeux olympiques</strong> </div>
                 
                 <section>
                     <p>
@@ -76,6 +78,7 @@
                                 <span style="display: none" id="expiration-date"></span>
                             </p>
                             </div>
+                        </div>
                             </p>
                   </section>
               </div>
@@ -86,5 +89,8 @@
         <i id="nav-droite" class="las la-chevron-right"></i>
       </div>
     </main>
+    <div class="date">
+       <strong> <input type="date" id="choose-date"></strong>
+    </div>
   </body>
 </html>

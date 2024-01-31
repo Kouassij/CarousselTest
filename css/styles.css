@@ -55,10 +55,18 @@ main {
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: #ffff;
+  background-color: #f70707;
   border-radius: 4px;
   position: absolute;
 }
+
+.description {
+  color: #ffff;
+}
 .event__date {
   font-size: 1.5rem;
+  background-color: #ffff;
+}
+.event__title {
+  color: #414040;
 }
